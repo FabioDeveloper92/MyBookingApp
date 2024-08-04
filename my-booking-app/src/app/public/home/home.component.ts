@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GoAction } from '../../router.actions';
 import { AppState } from '../../app.state';
 import { Store } from '@ngrx/store';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,8 @@ import { Store } from '@ngrx/store';
 })
 export class HomeComponent {
   constructor(private store: Store<AppState>) {}
-
+  
   onLogin(): void {
-    this.store.dispatch(GoAction({ path: ['dashboard'] }));
+    this.store.dispatch(GoAction({ path: ['/dashboard'] }));
   }
 }

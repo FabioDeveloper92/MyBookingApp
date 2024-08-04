@@ -11,8 +11,6 @@ export class RouterEffects {
     private actions$: Actions,
     private router: Router
   ) {
-
-    console.log('RouterEffects instantiated with actions$', this.actions$);
   }
   
   navigate$ = createEffect(() =>
