@@ -24,20 +24,20 @@ export class RouterEffects {
     { dispatch: false }
   );
 
-  // navigateBack$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(RouterActions.BackAction),
-  //     tap(() => this.router.navigate(['../']))
-  //   ),
-  //   { dispatch: false }
-  // );
+  navigateBack$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RouterActions.BackAction),
+      tap(() => this.router.navigate(['../']))
+    ),
+    { dispatch: false }
+  );
 
-  // navigateForward$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(RouterActions.ForwardAction),
-  //     tap(() => this.router.navigate(['./']))
-  //   ),
-  //   { dispatch: false }
-  // );
+  navigateForward$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RouterActions.ForwardAction),
+      tap(() => this.router.navigate(['./']))
+    ),
+    { dispatch: false }
+  );
 
 }

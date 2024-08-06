@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../app.state';
+import { GoAction } from '../../../router.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,4 +11,9 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
 
+  constructor(private store: Store<AppState>) {}
+  
+  onClickNewAppoinment(): void {
+    this.store.dispatch(GoAction({ path: ['/appointment'] }));
+  }
 }

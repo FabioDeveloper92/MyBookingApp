@@ -8,13 +8,16 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { AppReducers } from './app.reducers';
 import { AppMetaReducers } from './app-meta.reducers';
 import { RouterEffects } from './router.effects';
+import { endUserConfig } from './enduser/enduser.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
-     provideStore(AppReducers, { metaReducers: AppMetaReducers }), 
+    provideStore(AppReducers, { metaReducers: AppMetaReducers }), 
     provideEffects([RouterEffects]),
-     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
+    provideStoreDevtools({ maxAge: 25  }),
+    
+     ...endUserConfig.providers
     ]
 };
