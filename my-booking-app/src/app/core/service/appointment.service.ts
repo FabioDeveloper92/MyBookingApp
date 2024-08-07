@@ -7,16 +7,24 @@ import { AppointmentInfo } from "../model/appointment-info.model";
     providedIn: 'root'
   })
 export class AppointmnetService {
+     keyLocalStorage: string = "appointments";
+
     constructor() {}
   
-    services: Product[] = [
-        new Product(1, "Servizio 1", 5.00),
-        new Product(2, "Servizio 2", 23.23),
-        new Product(3, "Servizio 3", 7),
-    ];
-
-    // Metodo per ottenere la lista degli appuntamenti
     saveAppointment(appointmentInfo: AppointmentInfo | null): Observable<boolean> {
+
+        const storedAppointments = localStorage.getItem(this.keyLocalStorage);
+        let appointments = storedAppointments ? JSON.parse(storedAppointments) : [];
+        appointments.push(appointmentInfo);
+        localStorage.setItem(this.keyLocalStorage, JSON.stringify(appointments));
+
         return of(true).pipe(delay(200));
+    }
+
+    getAppointments(): Observable<AppointmentInfo[]> {
+        const storedAppointments = localStorage.getItem(this.keyLocalStorage);
+        let values = storedAppointments ? JSON.parse(storedAppointments) : [];
+
+        return of(values).pipe(delay(200));
     }
 }
