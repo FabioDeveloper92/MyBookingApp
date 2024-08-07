@@ -1,0 +1,24 @@
+<div class="columns is-centered">
+    <div class="column">
+        <h5>
+            Seleziona il servizio
+        </h5>
+    </div>
+  </div>
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <div *ngFor="let product of products" class="box">
+        <div (click)="onSelectProduct(product)">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="has-text-weight-bold mr-3">{{ product.name }}</span>
+              <span class="is-size-7">({{ product.price | currency:'EUR':'symbol'}})</span>
+            </p>
+            <button class="card-header-icon is-size-5" aria-label="more options">
+              >
+            </button>
+          </header>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,11 +1,12 @@
 import { delay, Observable, of } from "rxjs";
 import { Product } from "../model/product.model";
 import { Injectable } from "@angular/core";
+import { AppointmentInfo } from "../model/appointment-info.model";
 
 @Injectable({
     providedIn: 'root'
   })
-export class ProductService {
+export class AppointmnetService {
     constructor() {}
   
     services: Product[] = [
@@ -15,7 +16,7 @@ export class ProductService {
     ];
 
     // Metodo per ottenere la lista degli appuntamenti
-    getProducts(): Observable<Product[]> {
-        return of(this.services).pipe(delay(200));
+    saveAppointment(appointmentInfo: AppointmentInfo | null): Observable<boolean> {
+        return of(true).pipe(delay(200));
     }
 }

@@ -1,4 +1,4 @@
-export class Service {
+export class Product {
     id:number;
     name: string;
      price:number;

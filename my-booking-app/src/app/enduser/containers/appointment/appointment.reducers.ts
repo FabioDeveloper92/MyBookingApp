@@ -1,27 +1,47 @@
 import { ActionReducerMap, createReducer, on } from "@ngrx/store";
 import { AppointmentState } from "./appointment.state";
-import { LoadServices, LoadServicesError, LoadServicesSuccess } from "./appointment.actions";
+import { LoadProducts, LoadProductsError, LoadProductsSuccess, AddProductAppointment, CancelProductAppointment, SaveAppointmentSuccess, SaveAppointmentError } from "./appointment.actions";
+import { AppointmentInfo } from "../../../core/model/appointment-info.model";
 
 export const initialState: AppointmentState = {
   isLoading: false,
-  services: [],
+  products: [],
   error: null,
+  selectAppointment: null,
 };
 
 export const AppointmentReducer = createReducer(
   initialState,
-  on(LoadServices, state => ({
+  on(LoadProducts, state => ({
     ...state,
     isLoading: true,
     error:null,
-    services:[]
+    products:[]
   })),
-  on(LoadServicesSuccess, (state, { services }) => ({
+  on(LoadProductsSuccess, (state, { products: services }) => ({
     ...state,
     isLoading: false,
-    services
+    products: services
   })),
-  on(LoadServicesError, (state, { error }) => ({
+  on(LoadProductsError, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error
+  })),
+  on(AddProductAppointment, (state, { product }) => ({
+    ...state,
+    selectAppointment: new AppointmentInfo(product)
+  })),
+  on(CancelProductAppointment, (state) => ({
+    ...state,
+    selectAppointment: null
+  })),
+  on(SaveAppointmentSuccess, (state) => ({
+    ...state,
+    isLoading: false,
+    selectAppointment: null
+  })),
+  on(SaveAppointmentError, (state, { error }) => ({
     ...state,
     isLoading: false,
     error
