@@ -1,13 +1,14 @@
-import { ActionReducerMap, createReducer, on } from "@ngrx/store";
+import { createReducer, on } from "@ngrx/store";
 import { AppointmentState } from "./appointment.state";
-import { LoadProducts, LoadProductsError, LoadProductsSuccess, AddProductAppointment, CancelProductAppointment, SaveAppointmentSuccess, SaveAppointmentError } from "./appointment.actions";
-import { AppointmentInfo } from "../../../core/model/appointment-info.model";
+import { LoadProducts, LoadProductsError, LoadProductsSuccess, AddProductAppointment, CancelProductAppointment, SaveAppointmentSuccess, SaveAppointmentError, AddProductAppointmentDate } from "./appointment.actions";
 
 export const initialState: AppointmentState = {
   isLoading: false,
   products: [],
   error: null,
-  selectAppointment: null,
+  selectAppointmentProduct: null,
+  selectAppointmentDate: null,
+  selectAppointmentTime: null
 };
 
 export const AppointmentReducer = createReducer(
@@ -18,10 +19,10 @@ export const AppointmentReducer = createReducer(
     error:null,
     products:[]
   })),
-  on(LoadProductsSuccess, (state, { products: services }) => ({
+  on(LoadProductsSuccess, (state, { products: products }) => ({
     ...state,
     isLoading: false,
-    products: services
+    products: products
   })),
   on(LoadProductsError, (state, { error }) => ({
     ...state,
@@ -30,16 +31,25 @@ export const AppointmentReducer = createReducer(
   })),
   on(AddProductAppointment, (state, { product }) => ({
     ...state,
-    selectAppointment: new AppointmentInfo(product)
+    selectAppointmentProduct: product
+  })),
+  on(AddProductAppointmentDate, (state, { date, time }) => ({
+    ...state,
+    selectAppointmentDate: date,
+    selectAppointmentTime: time
   })),
   on(CancelProductAppointment, (state) => ({
     ...state,
-    selectAppointment: null
+    selectAppointmentProduct: null,
+    selectAppointmentDate: null,
+    selectAppointmentTime: null
   })),
   on(SaveAppointmentSuccess, (state) => ({
     ...state,
     isLoading: false,
-    selectAppointment: null
+    selectAppointmentProduct: null,
+    selectAppointmentDate: null,
+    selectAppointmentTime: null
   })),
   on(SaveAppointmentError, (state, { error }) => ({
     ...state,

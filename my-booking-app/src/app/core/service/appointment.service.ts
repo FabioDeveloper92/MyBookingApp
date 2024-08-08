@@ -11,7 +11,11 @@ export class AppointmnetService {
 
     constructor() {}
   
-    saveAppointment(appointmentInfo: AppointmentInfo | null): Observable<boolean> {
+    saveAppointment(product: Product | null, date: string| null, time: string| null): Observable<boolean> {
+        if(!product || ! date || !time)
+            throw new Error("Valori nulli");
+
+        const appointmentInfo = new AppointmentInfo(product, date, time);
 
         const storedAppointments = localStorage.getItem(this.keyLocalStorage);
         let appointments = storedAppointments ? JSON.parse(storedAppointments) : [];
@@ -22,6 +26,7 @@ export class AppointmnetService {
     }
 
     getAppointments(): Observable<AppointmentInfo[]> {
+        debugger;
         const storedAppointments = localStorage.getItem(this.keyLocalStorage);
         let values = storedAppointments ? JSON.parse(storedAppointments) : [];
 

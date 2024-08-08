@@ -1,15 +1,15 @@
 <!-- src/app/login/login.component.html -->
 <section class="section">
     <div class="container">
-      <div *ngIf="(selectAppointmentInfo$ | async) === null">
+      <div *ngIf="(selectProduct$ | async) === null">
       <app-product-list 
       [products]="(products$ | async) || []"
       (onProductSelected)="onSelectProduct($event)"/>
     </div>
 
-    <div *ngIf="(selectAppointmentInfo$ | async) !== null">
+    <div *ngIf="(selectProduct$ | async) !== null">
       <app-product-select-date 
-      [appointmentInfo]="selectAppointmentInfo$ | async"
+      [product]="selectProduct$ | async"
       (onBook)="onBook($event)"
       (onCancel)="onCancel()"/>
     </div>

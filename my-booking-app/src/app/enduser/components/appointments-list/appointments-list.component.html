@@ -1,0 +1,23 @@
+<h1 class="title">Lista di Appuntamenti</h1>
+
+<article class="media" *ngIf="!appointments || appointments.length === 0">
+    <div class="media-content">
+        <div class="content">
+            <p>
+                <strong>Nessun appuntamento disponibile</strong>
+            </p>
+        </div>
+    </div>
+</article>
+<div class="box" *ngIf="appointments && appointments.length > 0"> 
+    <article class="media" *ngFor="let appointment of appointments">
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong class="mr-1">{{appointment.product.name}}</strong> <small>{{appointment.date}} {{appointment.time}}</small>
+                </p>
+            </div>
+        </div>
+    </article>
+
+</div>

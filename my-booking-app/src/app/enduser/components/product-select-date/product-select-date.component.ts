@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { AppointmentInfo } from '../../../core/model/appointment-info.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Product } from '../../../core/model/product.model';
 
 @Component({
   selector: 'app-product-select-date',
@@ -10,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './product-select-date.component.html'
 })
 export class ProductSelectDateComponent implements OnInit {
-  @Input() appointmentInfo: AppointmentInfo | null = null;
+  @Input() product: Product | null = null;
   @Output() onBook = new EventEmitter<{ date: string, time: string }>();
   @Output() onCancel = new EventEmitter<void>();
 

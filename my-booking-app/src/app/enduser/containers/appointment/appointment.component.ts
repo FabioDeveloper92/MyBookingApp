@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppointmentState } from './appointment.state';
-import { selectAppointment as selectAppointmentInfo, selectProducts as selectProducts } from './appointment.selector';
+import { selectAppointmentProduct, selectProducts as selectProducts } from './appointment.selector';
 import { Product } from '../../../core/model/product.model';
 import { CommonModule } from '@angular/common';
 import { AddProductAppointment, AddProductAppointmentDate, CancelProductAppointment } from './appointment.actions';
-import { AppointmentInfo } from '../../../core/model/appointment-info.model';
 import { ProductListComponent } from '../../components/product-list/product-list.component';
 import { ProductSelectDateComponent } from '../../components/product-select-date/product-select-date.component';
 
@@ -18,11 +17,11 @@ import { ProductSelectDateComponent } from '../../components/product-select-date
 })
 export class AppointmentComponent {
   products$: Observable<Product[]>;
-  selectAppointmentInfo$: Observable<AppointmentInfo | null>;
+  selectProduct$: Observable<Product | null>;
 
   constructor(private store: Store<AppointmentState>) {
     this.products$ = this.store.select(selectProducts);
-    this.selectAppointmentInfo$ = this.store.select(selectAppointmentInfo);
+    this.selectProduct$ = this.store.select(selectAppointmentProduct);
   }
 
   onSelectProduct(product:Product):void {

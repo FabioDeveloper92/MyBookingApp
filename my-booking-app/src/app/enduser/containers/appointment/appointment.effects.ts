@@ -8,7 +8,7 @@ import { ProductService } from '../../../core/service/product.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AppointmnetService } from '../../../core/service/appointment.service';
-import { selectAppointment, selectAppointmentState } from './appointment.selector';
+import { selectAppointmentProduct, selectAppointmentDate, selectAppointmentTime, selectAppointmentState } from './appointment.selector';
 import { GoAction } from '../../../router.actions';
 
 @Injectable()
@@ -38,16 +38,21 @@ export class AppointmentEffects {
   addProductAppointmentDate$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AddProductAppointmentDate),
-      switchMap(() =>
-        this.store.pipe(
-          select(selectAppointment),
-          switchMap(appointmentInfo => {
-              return this.appointmentService.saveAppointment(appointmentInfo).pipe(
-                map(response => SaveAppointmentSuccess()),
-                catchError(error =>
-                  of(SaveAppointmentError({ error: new ErrorPayload(error.status || 500, error.message || "Errore caricamento") }))
-                )
-              );
+      switchMap(action =>
+        combineLatest([
+          this.store.pipe(select(selectAppointmentProduct)),
+          this.store.pipe(select(selectAppointmentDate)),
+          this.store.pipe(select(selectAppointmentTime))
+        ]).pipe(
+          switchMap(([appointmentInfo, appointmentDate, appointmentTime]) => {
+            return this.appointmentService.saveAppointment(appointmentInfo, appointmentDate, appointmentTime).pipe(
+              map(() => SaveAppointmentSuccess()),
+              catchError(error =>
+                of(SaveAppointmentError({ 
+                  error: new ErrorPayload(error.status || 500, error.message || "Errore caricamento") 
+                }))
+              )
+            );
           })
         )
       )
